@@ -1,0 +1,57 @@
+.members-header {
+  display: flex;
+  padding: 2rem 10rem;
+  align-items: center;
+
+  .circle {
+    background-color: $primaryColor;
+    border-radius: 50%;
+    height: 5rem;
+    width: 5rem;
+  }
+
+  h1 {
+    margin-left: 2rem;
+  }
+  @media screen and (max-width: 1024px) {
+    padding: 1rem 5rem;
+  }
+}
+
+.members-controls {
+  padding: 4rem 10rem;
+  display: flex;
+  justify-content: space-between;
+  @media screen and (max-width: 1024px) {
+    padding: 1rem 5rem;
+  }
+}
+
+.search-box {
+  padding: 0.5rem;
+  border-radius: 40px;
+  border: 2px solid black;
+  .search-text {
+    border: none;
+    outline: none;
+    padding: 0;
+    font-size: 1rem;
+  }
+}
+
+.add-button {
+  background: $primaryColor;
+  padding: 0.5rem 3rem;
+  border: 1px solid $primaryColor;
+  border-radius: 10px;
+  font-weight: bolder;
+  cursor: pointer;
+  transition: 0.25s ease;
+  &:hover {
+    border: 1px solid #e99700;
+    background: #e99700;
+  }
+}
+
+@import "./userList";
+@import "./userModal";

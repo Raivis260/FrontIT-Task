@@ -1,0 +1,42 @@
+.add-user-modal-bg {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-user-modal {
+  background-color: #fff;
+  width: 50%;
+  height: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  .input-group {
+    margin: 1rem;
+  }
+  button {
+    background: $primaryColor;
+    padding: 0.5rem 3rem;
+    margin: 1rem;
+    border: 1px solid $primaryColor;
+    border-radius: 10px;
+    font-weight: bolder;
+    cursor: pointer;
+    transition: 0.25s ease;
+    &:hover {
+      border: 1px solid #e99700;
+      background: #e99700;
+    }
+  }
+}

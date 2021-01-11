@@ -1,0 +1,24 @@
+nav {
+  height: 10vh;
+  padding: 3% 5rem;
+
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+  }
+  li {
+    margin: 0rem 3rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .active {
+    border-bottom: 3px solid #000;
+  }
+
+  @media screen and (max-width: 1024px) {
+    ul {
+      width: fit-content;
+    }
+  }
+}

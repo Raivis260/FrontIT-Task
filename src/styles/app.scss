@@ -1,0 +1,15 @@
+$primaryColor: #ffa600;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Reader", sans-serif;
+  color: black;
+}
+
+@import "./nav";
+@import "./pages/Members/members";
