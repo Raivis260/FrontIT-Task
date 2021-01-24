@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const UserModal = ({ toggleModal, setUsersList }) => {
+const UserModal = ({ toggleAddModal, setUsersList }) => {
   const addUser = (newUser) => {
     setUsersList((list) => [...list, newUser]);
   };
@@ -19,7 +19,7 @@ const UserModal = ({ toggleModal, setUsersList }) => {
   const submitHandler = (e) => {
     if (user.name && user.email && user.phone && user.website) {
       e.preventDefault();
-      toggleModal();
+      toggleAddModal();
       addUser(user);
     } else {
       e.preventDefault();
@@ -27,8 +27,8 @@ const UserModal = ({ toggleModal, setUsersList }) => {
   };
 
   return (
-    <div className="add-user-modal-bg">
-      <div className="add-user-modal">
+    <div className="user-modal-bg">
+      <div className="user-modal">
         <h2>Add User</h2>
         <form onSubmit={submitHandler}>
           <div className="input-group">
@@ -48,7 +48,7 @@ const UserModal = ({ toggleModal, setUsersList }) => {
             <input type="text" name="website" onChange={handleInputChange} />
           </div>
           <button type="submit">Create</button>
-          <button onClick={toggleModal}>Cancel</button>
+          <button onClick={toggleAddModal}>Cancel</button>
         </form>
       </div>
     </div>

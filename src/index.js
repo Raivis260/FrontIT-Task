@@ -5,7 +5,7 @@ import "./styles/app.scss";
 import { BrowserRouter } from "react-router-dom";
 import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
-import usersReducer from "./reducers/usersReducer";
+import usersReducer from "./store/users/usersReducer";
 import thunk from "redux-thunk";
 import reportWebVitals from "./reportWebVitals";
 

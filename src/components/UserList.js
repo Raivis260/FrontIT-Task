@@ -1,26 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faEdit, faSortDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTimes,
+  faEdit,
+  faSortDown,
+  faSortUp,
+} from "@fortawesome/free-solid-svg-icons";
 import { sortName } from "../sortMembers";
-const UserList = ({ filteredUsers, setUsersList }) => {
+const UserList = ({
+  usersList,
+  setUsersList,
+  filter,
+  toggleEditModal,
+  setSelectedUser,
+}) => {
   const { isLoading } = useSelector((state) => state);
 
-  const userRemoveHandler = (userId) => {
+  const history = useHistory();
+  const [isSorted, setIsSorted] = useState(false);
+
+  const userEditHandler = (e, userId) => {
+    e.stopPropagation();
+    toggleEditModal();
     let index;
-    filteredUsers.map((user) => {
-      if (user.id === userId) index = filteredUsers.indexOf(user);
+    usersList.map((user) => {
+      if (user.id === userId) index = usersList.indexOf(user);
+    });
+
+    return setSelectedUser({ ...usersList[index] });
+  };
+
+  const handleRowClick = (userId) => {
+    history.push(`/user/${userId}`);
+  };
+
+  const userRemoveHandler = (event, userId) => {
+    let index;
+    usersList.map((user) => {
+      if (user.id === userId) index = usersList.indexOf(user);
     });
     if (index > -1) {
-      filteredUsers.splice(index, 1);
+      usersList.splice(index, 1);
     }
-
-    setUsersList(filteredUsers);
+    event.stopPropagation();
+    return setUsersList([...usersList]);
   };
 
   const sortByName = () => {
-    setUsersList(sortName(filteredUsers));
+    if (isSorted) {
+      setIsSorted(!isSorted);
+      const sortedList = sortName([...usersList], isSorted);
+      return setUsersList(sortedList);
+    } else {
+      setIsSorted(!isSorted);
+      const sortedList = sortName([...usersList], isSorted);
+      return setUsersList(sortedList);
+    }
   };
 
   return (
@@ -31,30 +68,31 @@ const UserList = ({ filteredUsers, setUsersList }) => {
             <thead>
               <tr>
                 <th onClick={sortByName} style={{ cursor: "pointer" }}>
-                  Name <FontAwesomeIcon icon={faSortDown} />
+                  Name
+                  <FontAwesomeIcon icon={isSorted ? faSortDown : faSortUp} />
                 </th>
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Website</th>
                 <th></th>
+                <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
-              {filteredUsers.map((user) => {
+              {filter.map((user) => {
                 return (
-                  <tr key={user.id}>
-                    <Link
-                      to={`/user/${user.id}`}
-                      style={{
-                        textDecoration: "none",
-                        color: "#000",
-                      }}
-                    >
-                      <td>{user.name}</td>
-                    </Link>
+                  <tr
+                    key={user.id}
+                    onClick={() => handleRowClick(user.id)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <td>{user.name}</td>
                     <td>{user.email}</td>
                     <td>{user.phone}</td>
                     <td>{user.website}</td>
+                    <td></td>
+                    <td></td>
                     <td>
                       <FontAwesomeIcon
                         icon={faEdit}
@@ -64,6 +102,7 @@ const UserList = ({ filteredUsers, setUsersList }) => {
                           color: "grey",
                           cursor: "pointer",
                         }}
+                        onClick={(e) => userEditHandler(e, user.id)}
                       />
                       <FontAwesomeIcon
                         icon={faTimes}
@@ -73,7 +112,7 @@ const UserList = ({ filteredUsers, setUsersList }) => {
                           color: "#ffa600",
                           cursor: "pointer",
                         }}
-                        onClick={() => userRemoveHandler(user.id)}
+                        onClick={(e) => userRemoveHandler(e, user.id)}
                       />
                     </td>
                   </tr>
